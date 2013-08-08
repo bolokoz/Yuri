@@ -40,7 +40,7 @@ public class Camera extends Activity implements View.OnClickListener{
 		b.setOnClickListener(this);
 		ib.setOnClickListener(this);
 	}
-
+	//AEUOAEHOUAEHOAU
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
