@@ -31,7 +31,7 @@ public class Camera extends Activity implements View.OnClickListener{
 		InputStream is = getResources().openRawResource(R.drawable.ic_launcher);
 		bmp  = BitmapFactory.decodeStream(is);
 	}
-	
+	//AOEUHAOEUHAEUO TESTE GIT
 	private void initialize() {
 		// TODO Auto-generated method stub
 		iv = (ImageView) findViewById (R.id.ivReturnedPic);
