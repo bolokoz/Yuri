@@ -22,6 +22,8 @@ public class Camera extends Activity implements View.OnClickListener{
 	Intent i;
 	final static int cameraData = 0;
 	Bitmap bmp;
+	//AOEUHAEOUHE TESTE 3
+	//AOEUHAEUOHAEOH teste 4
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
