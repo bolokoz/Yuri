@@ -16,7 +16,7 @@ public class Data extends Activity implements OnClickListener {
 	Button start, startFor;
 	EditText sendET;
 	TextView gotAnswer;
-
+//OAUEWHOAUEHOUAEHOUAE TESTETETETETETE
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
