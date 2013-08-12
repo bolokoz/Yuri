@@ -38,6 +38,10 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="com.example.yuri.GFX"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.example.yuri.Email"
             android:label="@string/app_name" >
         </activity>
