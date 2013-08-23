@@ -55,6 +55,14 @@ public class GFXSurface extends Activity implements OnTouchListener {
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		// TODO Auto-generated method stub
+		
+		try {
+			Thread.sleep(16);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		x = event.getX();
 		y = event.getY();
 
@@ -62,14 +70,15 @@ public class GFXSurface extends Activity implements OnTouchListener {
 		case MotionEvent.ACTION_DOWN:
 			sX = event.getX();
 			sY = event.getY();
+			dX = dY = aniX = aniY = scaledX = scaledY = fX = fY = 0;
 			break;
 		case MotionEvent.ACTION_UP:
 			fX = event.getX();
 			fY = event.getY();
 			dX = fX - sX;
 			dY = fY - sY;
-			scaledX = dX / 30;
-			scaledY = dY / 30;
+			scaledX = dX/15;
+			scaledY = dY/15;
 			x = y = 0;
 			break;
 		}
@@ -127,8 +136,9 @@ public class GFXSurface extends Activity implements OnTouchListener {
 							(sY - (plus.getHeight() / 2)), null);
 				}
 				if (fX != 0 && fY != 0) {
-					canvas.drawBitmap(test, (x - (test.getWidth() / 2)) - aniX,
-							(y - (test.getHeight() / 2)) - aniY, null);
+					canvas.drawBitmap(test,
+							(fX - (test.getWidth() / 2)) - aniX,
+							(fY - (test.getHeight() / 2)) - aniY, null);
 					canvas.drawBitmap(plus, (fX - (plus.getWidth() / 2)),
 							(fY - (plus.getHeight() / 2)), null);
 				}

@@ -14,14 +14,15 @@ import android.widget.ListView;
 public class Menu extends ListActivity {
 
 	String classes[] = { "MainActivity", "TextPlay", "Email", "Camera", "Data",
-			"GFX", "GFXSurface" };
+			"GFX", "GFXSurface", "SoundStuff" };
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setListAdapter(new ArrayAdapter<String>(Menu.this,
 				android.R.layout.simple_list_item_1, classes));
 	}

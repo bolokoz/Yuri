@@ -2,9 +2,10 @@ package com.example.yuri;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.WindowManager;
 
-public class GFX extends Activity{
-	
+public class GFX extends Activity {
+
 	MyBringBack ourView;
 
 	@Override
@@ -12,10 +13,10 @@ public class GFX extends Activity{
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
+		//WAKE LOCK
+		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		ourView = new MyBringBack(this);
 		setContentView(ourView);
 	}
-	
-	
 
 }
