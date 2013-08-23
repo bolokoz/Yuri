@@ -1,9 +1,7 @@
 package com.example.yuri;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.content.DialogInterface.OnClickListener;
-import android.view.Menu;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -46,7 +44,5 @@ public class MainActivity extends Activity {
 		});
 
 	}
-
-	
 
 }
