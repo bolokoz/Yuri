@@ -37,6 +37,14 @@
             android:label="@string/app_name" >
         </activity>
         <activity
+            android:name="com.example.yuri.Tabs"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.yuri.Slider"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
             android:name="com.example.yuri.GFX"
             android:label="@string/app_name" >
         </activity>
