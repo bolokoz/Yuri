@@ -7,6 +7,7 @@
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="17" />
+
     <uses-permission android:name="android.permission.SET_WALLPAPER" />
 
     <application
@@ -34,14 +35,6 @@
         </activity>
         <activity
             android:name="com.example.yuri.TextPlay"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.example.yuri.Tabs"
-            android:label="@string/app_name" >
-        </activity>
-        <activity
-            android:name="com.example.yuri.Slider"
             android:label="@string/app_name" >
         </activity>
         <activity
@@ -98,5 +91,4 @@
             </intent-filter>
         </activity>
     </application>
-
 </manifest>
