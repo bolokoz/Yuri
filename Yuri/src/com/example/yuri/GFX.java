@@ -13,6 +13,7 @@ public class GFX extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		
+		//TEST TEST COMMIT
 		//WAKE LOCK
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		ourView = new MyBringBack(this);
