@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
 
     <TabHost
         android:id="@+id/tabhost"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
+
         <LinearLayout
+            android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
@@ -17,13 +21,13 @@
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
-            </TabWidget>
+                android:layout_height="wrap_content" />
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
+
 
                 <LinearLayout
                     android:id="@+id/tab1"
@@ -46,8 +50,9 @@
                         android:id="@+id/tvShowResults"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView 1" />
+                        android:text="TextView" />
                 </LinearLayout>
+- 
 
                 <LinearLayout
                     android:id="@+id/tab2"
@@ -55,7 +60,7 @@
                     android:layout_height="match_parent" >
 
                     <TextView
-                        android:id="@+id/textView2"
+                        android:id="@+id/textView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="TextView 2" />
@@ -71,18 +76,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Add a Tab" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/tab4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" >
-
-                    <TextView
-                        android:id="@+id/textView4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="TextView 4" />
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

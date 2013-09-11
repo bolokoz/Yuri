@@ -12,6 +12,8 @@ import android.widget.TextView;
 public class Tabs extends Activity implements OnClickListener{
 	//Criar fora do onCreate para ser usado por tudo
 	TabHost th;
+	TextView showResults;
+	long start=0, stop;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -24,8 +26,13 @@ public class Tabs extends Activity implements OnClickListener{
 		Button newTab = (Button)findViewById(R.id.bAddTab);
 		Button bStart = (Button)findViewById(R.id.bStartWatch);
 		Button bStop = (Button)findViewById(R.id.bStopWatch);
+		showResults = (TextView)findViewById(R.id.tvShowResults);
+		
 		//Configurar "ouvidor" de toque na tela
+		bStop.setOnClickListener(this);
+		bStart.setOnClickListener(this);	
 		newTab.setOnClickListener(this);
+		
 		// Configurar tabhost
 		th.setup();
 		// Configurar o que é para ser mostrado
@@ -34,7 +41,7 @@ public class Tabs extends Activity implements OnClickListener{
 		
 		// Criar tab1 - definido no xml
 		specs.setContent(R.id.tab1);
-		// Incluir dentro da tab1
+		// Incluir texto dentro da tab1
 		specs.setIndicator("StopWatch");
 		// Mostrar
 		th.addTab(specs);
@@ -81,10 +88,22 @@ public class Tabs extends Activity implements OnClickListener{
 			
 			break;
 		case R.id.bStartWatch:
-			
+			//Pegar horario do sistema
+			start = System.currentTimeMillis();
 			break;
 		case R.id.bStopWatch:
+			stop = System.currentTimeMillis();
 			
+			if(start != 0){
+			long result = stop - start;
+			int millis = (int) result;
+			int second = (int) result/1000;
+			int minutes = second/60;
+			millis = millis % 100;
+			second = second % 60;
+			
+			showResults.setText(String.format("%d:%02d:%02d", minutes,second,millis));
+			}
 			break;
 		}
 		
