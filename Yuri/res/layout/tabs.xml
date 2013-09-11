@@ -66,11 +66,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
-                    <TextView
-                        android:id="@+id/textView3"
+                    <Button
+                        android:id="@+id/bAddTab"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="TextView 3" />
+                        android:text="Add a Tab" />
                 </LinearLayout>
 
                 <LinearLayout
