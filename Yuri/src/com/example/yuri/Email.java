@@ -13,7 +13,7 @@ public class Email extends Activity implements View.OnClickListener {
 			outro;
 	String emailAdd, beginning, name, stupidAction, hatefulAct, out;
 	Button sendEmail;
-
+//ALALALALALALALAL
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
