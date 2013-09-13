@@ -1,9 +1,15 @@
 package com.example.yuri;
 
+import java.net.URI;
+
 import android.app.Activity;
+import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
@@ -21,9 +27,21 @@ public class SimpleBrowser extends Activity implements OnClickListener {
 		setContentView(R.layout.simplebrowser);
 
 		// Estabelece conexao com Webview do layout xml
-		WebView ourBrow = (WebView) findViewById(R.id.wvBrowser);
+		ourBrow = (WebView) findViewById(R.id.wvBrowser);
+		//Permitir JavaScript
+		ourBrow.getSettings().setJavaScriptEnabled(true);
+		//Permitir zoom
+		ourBrow.getSettings().setBuiltInZoomControls(true);
+		//Fazer janela totalmente visivel quando carregar
+		ourBrow.getSettings().setLoadWithOverviewMode(true);
+		//Vizualizar sites igual um desktop
+		ourBrow.getSettings().setUseWideViewPort(true);
 		// Define URL
+		try{
 		ourBrow.loadUrl("http://www.uol.com.br");
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 		// Faz com que o conteudo seja mostrado no webview ourBrow e não em um
 		// browser do android
 		ourBrow.setWebViewClient(new WebViewClient() {
@@ -39,8 +57,10 @@ public class SimpleBrowser extends Activity implements OnClickListener {
 		Button refresh = (Button) findViewById(R.id.bRefresh);
 		Button forward = (Button) findViewById(R.id.bForward);
 		Button clearHistory = (Button) findViewById(R.id.bHistory);
-
+		
+		
 		url = (EditText) findViewById(R.id.etURL);
+		url.setInputType(InputType.TYPE_TEXT_VARIATION_URI);
 		go.setOnClickListener(this);
 		back.setOnClickListener(this);
 		refresh.setOnClickListener(this);
@@ -57,6 +77,9 @@ public class SimpleBrowser extends Activity implements OnClickListener {
 			//Muda url
 			String theWebsite = url.getText().toString();
 			ourBrow.loadUrl(theWebsite);
+			//Para esconder o teclado quando clicar ok
+			InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+			imm.hideSoftInputFromWindow(url.getWindowToken(), 0);
 			break;
 		case R.id.bBack:
 			//Se voce estiver na primeira página visualizada
