@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,10 +20,10 @@ public class InternalData extends Activity implements OnClickListener {
 
 	EditText sharedData;
 	TextView dataResults;
-	//Variavel para escrever arquivos
+	// Variavel para escrever arquivos
 	FileOutputStream fos;
 	String FILENAME = "InternalString";
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -40,7 +41,8 @@ public class InternalData extends Activity implements OnClickListener {
 		save.setOnClickListener(this);
 		load.setOnClickListener(this);
 		try {
-			//Abrir "escritor" de arquivos com o nome FILENAME no modo privado(?) Tutorial 98
+			// Abrir "escritor" de arquivos com o nome FILENAME no modo
+			// privado(?) Tutorial 98
 			fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
 			fos.close();
 		} catch (FileNotFoundException e) {
@@ -55,26 +57,21 @@ public class InternalData extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		switch (v.getId()){
+		switch (v.getId()) {
 		case R.id.bSave:
 			String data = sharedData.getText().toString();
-			//Saving data via File
-			/*File f = new File(FILENAME);
+			// Saving data via File
+			/*
+			 * File f = new File(FILENAME); try { fos = new FileOutputStream(f);
+			 * fos.close(); } catch (FileNotFoundException e) { // TODO
+			 * Auto-generated catch block e.printStackTrace(); } catch
+			 * (IOException e) { // TODO Auto-generated catch block
+			 * e.printStackTrace(); }
+			 */
+			// Método normal, usado anteriormente
 			try {
-				fos = new FileOutputStream(f);
+				fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
 				fos.close();
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			*/
-			//Método normal, usado anteriormente
-			try {
-			fos = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-			fos.close();
 				fos.write(data.getBytes());
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -82,16 +79,37 @@ public class InternalData extends Activity implements OnClickListener {
 			}
 			break;
 		case R.id.bLoad:
-			//Input é para ler
-			//Output é para salvar
+			// Cria um execute method
+			new loadSomeStuff().execute(FILENAME);
+			break;
+		}
+	}
+	//Tutorial 100
+	// Extends Async
+	// Está sendo passado um FILENAME
+	// Primeiro parâmetro é uma String
+	// O terceiro é o que será retornado; uma string
+	public class loadSomeStuff extends AsyncTask<String, Integer, String> {
+		//Tutorial 102
+		protected void onPreExecute(String f) {
+			// Example of setting up something
+			f = "whatever";
+
+		}
+
+		@Override
+		protected String doInBackground(String... params) {
+			// TODO Auto-generated method stub
+			// Input é para ler
+			// Output é para salvar
 			String collected = null;
 			FileInputStream fis = null;
 			try {
-				 fis = openFileInput(FILENAME);
-				//Cria um byte array, do mesmo tamanho available do fis
+				fis = openFileInput(FILENAME);
+				// Cria um byte array, do mesmo tamanho available do fis
 				byte[] dataArray = new byte[fis.available()];
-				//Vai lendo fis e quando atingir -1, significa que acabou
-				while(fis.read(dataArray) != -1){
+				// Vai lendo fis e quando atingir -1, significa que acabou
+				while (fis.read(dataArray) != -1) {
 					collected = new String(dataArray);
 				}
 			} catch (FileNotFoundException e) {
@@ -100,18 +118,26 @@ public class InternalData extends Activity implements OnClickListener {
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} finally{ 
+			} finally {
 				try {
 					fis.close();
-					//Muda o textView
-					dataResults.setText(collected);
+					// Muda o textView
+					return collected;
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
-			break;
+			return null;
 		}
+		//Tutorial 102
+		protected void onProgressUpdated(Integer... progress) {
+
+		}
+		//Tutorial 101
+			protected void onPostExecute(String result){
+				dataResults.setText(result);
+			}
 	}
 
 }
