@@ -9,6 +9,7 @@
         android:targetSdkVersion="17" />
 	<uses-permission android:name="android.permission.SET_WALLPAPER" /> 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -75,6 +76,14 @@
         </activity>
         <activity
             android:name="com.example.yuri.Tabs"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.yuri.ExternalData"
+            android:label="@string/app_name" >
+        </activity>
+         <activity
+            android:name="com.example.yuri.InternalData"
             android:label="@string/app_name" >
         </activity>
         <activity

@@ -1,12 +1,12 @@
 package com.example.yuri;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -84,16 +84,25 @@ public class InternalData extends Activity implements OnClickListener {
 			break;
 		}
 	}
-	//Tutorial 100
+
+	
+	
+	// Tutorial 100
 	// Extends Async
 	// Está sendo passado um FILENAME
 	// Primeiro parâmetro é uma String
 	// O terceiro é o que será retornado; uma string
 	public class loadSomeStuff extends AsyncTask<String, Integer, String> {
-		//Tutorial 102
-		protected void onPreExecute(String f) {
+		// Tutorial 102
+
+		ProgressDialog dialog;
+
+		protected void onPreExecute() {
 			// Example of setting up something
-			f = "whatever";
+			dialog = new ProgressDialog(InternalData.this);
+			dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			dialog.setMax(100);
+			dialog.show();
 
 		}
 
@@ -104,6 +113,18 @@ public class InternalData extends Activity implements OnClickListener {
 			// Output é para salvar
 			String collected = null;
 			FileInputStream fis = null;
+
+			for (int i = 0; i < 20; i++) {
+				publishProgress(5);
+				
+				try {
+					Thread.sleep(96);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			dialog.dismiss();
 			try {
 				fis = openFileInput(FILENAME);
 				// Cria um byte array, do mesmo tamanho available do fis
@@ -130,14 +151,16 @@ public class InternalData extends Activity implements OnClickListener {
 			}
 			return null;
 		}
-		//Tutorial 102
-		protected void onProgressUpdated(Integer... progress) {
 
+		// Tutorial 102
+		protected void onProgressUpdate(Integer... progress) {
+			dialog.incrementProgressBy(progress[0]);
 		}
-		//Tutorial 101
-			protected void onPostExecute(String result){
-				dataResults.setText(result);
-			}
+
+		// Tutorial 101
+		protected void onPostExecute(String result) {
+			dataResults.setText(result);
+		}
 	}
 
 }
