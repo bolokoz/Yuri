@@ -1,6 +1,8 @@
 package com.example.yuri;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -50,7 +52,7 @@ public class HotOrNot {
 		ourContext = c;
 	}
 	
-	public HotOrNot open(){
+	public HotOrNot open() throws SQLException{
 		ourHelper = new DbHelper(ourContext);
 		ourDatabase = ourHelper.getWritableDatabase();
 		return this;
@@ -59,8 +61,11 @@ public class HotOrNot {
 		ourHelper.close();
 	}
 
-	public void createEntry(String name, String hotness) {
+	public long createEntry(String name, String hotness) {
 		// TODO Auto-generated method stub
-		
+		ContentValues cv = new ContentValues();
+		cv.put(KEY_NAME, name);
+		cv.put(KEY_HOTNESS, hotness);
+		return ourDatabase.insert(DATABASE_TABLE, null, cv);
 	}
 }
