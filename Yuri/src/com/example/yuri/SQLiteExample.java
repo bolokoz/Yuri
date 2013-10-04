@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 public class SQLiteExample extends Activity implements OnClickListener {
 
-	Button sqlUpdate, sqlView;
-	EditText sqlName, sqlHotness;
+	Button sqlUpdate, sqlView, sqlModify, sqlGetInfo, sqlDelete;
+	EditText sqlName, sqlHotness, sqlRow;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +28,14 @@ public class SQLiteExample extends Activity implements OnClickListener {
 		sqlView.setOnClickListener(this);
 		sqlUpdate.setOnClickListener(this);
 
+		sqlRow = (EditText) findViewById(R.id.etSQLrowinfo);
+		sqlModify = (Button) findViewById(R.id.bSQLmodify);
+		sqlGetInfo = (Button) findViewById(R.id.bSQLgetinfo);
+		sqlDelete = (Button) findViewById(R.id.bSQLdelete);
+		sqlModify.setOnClickListener(this);
+		sqlGetInfo.setOnClickListener(this);
+		sqlDelete.setOnClickListener(this);
+		
 	}
 
 	@Override
@@ -49,6 +57,13 @@ public class SQLiteExample extends Activity implements OnClickListener {
 			
 			}catch (Exception e){
 					didItWork = false;
+					String error = e.toString();
+					Dialog d = new Dialog(this);
+					d.setTitle("!Dang!!");
+					TextView tv = new TextView(this);
+					tv.setText(error);
+					d.setContentView(tv);
+					d.show();
 					e.printStackTrace();
 			}finally{
 				if (didItWork){
@@ -68,6 +83,17 @@ public class SQLiteExample extends Activity implements OnClickListener {
 			startActivity(i);
 			
 			break;
+		case R.id.bSQLgetinfo:
+			String s = sqlRow.getText().toString();
+			long l = Long.parseLong(s);
+			HotOrNot hon = new HotOrNot(this);
+			hon.open();
+			String returnedName = hon.getName(l);
+			String returnedHotness = hon.getHotness (l);
+			hon.close();
+			
+			sqlName.setText(returnedName);
+			sqlHotness.setText(returnedHotness);
 		}
 	}
 }

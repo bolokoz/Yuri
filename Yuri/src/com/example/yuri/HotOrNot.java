@@ -2,6 +2,7 @@ package com.example.yuri;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -34,14 +35,13 @@ public class HotOrNot {
 			// TODO Auto-generated method stub
 			db.execSQL("CREATE TABLE " + DATABASE_TABLE + " (" + KEY_ROWID
 					+ " INTEGER PRIMARY KEY AUTOINCREMENT, " + KEY_NAME
-					+ " TEXT NOT NULL, " + KEY_HOTNESS + " TEXT NOT NULL)"
-			);
+					+ " TEXT NOT NULL, " + KEY_HOTNESS + " TEXT NOT NULL)");
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 			// TODO Auto-generated method stub
-			//Update o banco de dados
+			// Update o banco de dados
 			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
 			onCreate(db);
 		}
@@ -51,13 +51,14 @@ public class HotOrNot {
 	public HotOrNot(Context c) {
 		ourContext = c;
 	}
-	
-	public HotOrNot open() throws SQLException{
+
+	public HotOrNot open() throws SQLException {
 		ourHelper = new DbHelper(ourContext);
 		ourDatabase = ourHelper.getWritableDatabase();
 		return this;
 	}
-	public void close(){
+
+	public void close() {
 		ourHelper.close();
 	}
 
@@ -67,5 +68,32 @@ public class HotOrNot {
 		cv.put(KEY_NAME, name);
 		cv.put(KEY_HOTNESS, hotness);
 		return ourDatabase.insert(DATABASE_TABLE, null, cv);
+	}
+
+	public String getData() {
+		String[] columns = new String[] { KEY_ROWID, KEY_NAME, KEY_HOTNESS };
+		Cursor c = ourDatabase.query(DATABASE_TABLE, columns, null, null, null,
+				null, null);
+		String result = "";
+
+		int iRow = c.getColumnIndex(KEY_ROWID);
+		int iName = c.getColumnIndex(KEY_NAME);
+		int iHotness = c.getColumnIndex(KEY_HOTNESS);
+
+		for (c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+			result = result + c.getString(iRow) + " " + c.getString(iName)
+					+ " " + c.getShort(iHotness) + "\n";
+		}
+		return result;
+	}
+
+	public String getName(long l) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String getHotness(long l) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
