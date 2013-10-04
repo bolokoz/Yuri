@@ -35,38 +35,38 @@ public class SQLiteExample extends Activity implements OnClickListener {
 		sqlModify.setOnClickListener(this);
 		sqlGetInfo.setOnClickListener(this);
 		sqlDelete.setOnClickListener(this);
-		
+
 	}
 
 	@Override
 	public void onClick(View v) {
 		// TODO Auto-generated method stub
-		switch(v.getId()){
-		
+		switch (v.getId()) {
+
 		case R.id.bSQLUpdate:
-			
+
 			boolean didItWork = true;
-			try{
-			String name = sqlName.getText().toString();
-			String hotness = sqlHotness.getText().toString();
-			
-			HotOrNot entry = new HotOrNot(SQLiteExample.this);
-			entry.open();
-			entry.createEntry(name, hotness);
-			entry.close();
-			
-			}catch (Exception e){
-					didItWork = false;
-					String error = e.toString();
-					Dialog d = new Dialog(this);
-					d.setTitle("!Dang!!");
-					TextView tv = new TextView(this);
-					tv.setText(error);
-					d.setContentView(tv);
-					d.show();
-					e.printStackTrace();
-			}finally{
-				if (didItWork){
+			try {
+				String name = sqlName.getText().toString();
+				String hotness = sqlHotness.getText().toString();
+
+				HotOrNot entry = new HotOrNot(SQLiteExample.this);
+				entry.open();
+				entry.createEntry(name, hotness);
+				entry.close();
+
+			} catch (Exception e) {
+				didItWork = false;
+				String error = e.toString();
+				Dialog d = new Dialog(this);
+				d.setTitle("!Dang!!");
+				TextView tv = new TextView(this);
+				tv.setText(error);
+				d.setContentView(tv);
+				d.show();
+				e.printStackTrace();
+			} finally {
+				if (didItWork) {
 					Dialog d = new Dialog(this);
 					d.setTitle("!Heck Yea!!");
 					TextView tv = new TextView(this);
@@ -75,25 +75,84 @@ public class SQLiteExample extends Activity implements OnClickListener {
 					d.show();
 				}
 			}
-			
+
 			break;
 		case R.id.bSQLOpenView:
-			
+
 			Intent i = new Intent("com.example.yuri.SQLVIEW");
 			startActivity(i);
-			
+
 			break;
 		case R.id.bSQLgetinfo:
-			String s = sqlRow.getText().toString();
-			long l = Long.parseLong(s);
-			HotOrNot hon = new HotOrNot(this);
-			hon.open();
-			String returnedName = hon.getName(l);
-			String returnedHotness = hon.getHotness (l);
-			hon.close();
-			
-			sqlName.setText(returnedName);
-			sqlHotness.setText(returnedHotness);
+			try {
+				String s = sqlRow.getText().toString();
+				// long que vai ser rowid
+				long l = Long.parseLong(s);
+				HotOrNot hon = new HotOrNot(this);
+				hon.open();
+				String returnedName = hon.getName(l);
+				String returnedHotness = hon.getHotness(l);
+				hon.close();
+
+				sqlName.setText(returnedName);
+				sqlHotness.setText(returnedHotness);
+			} catch (Exception e) {
+
+				String error = e.toString();
+				Dialog d = new Dialog(this);
+				d.setTitle("!Dang!!");
+				TextView tv = new TextView(this);
+				tv.setText(error);
+				d.setContentView(tv);
+				d.show();
+				e.printStackTrace();
+			}
+
+		case R.id.bSQLmodify:
+			try {
+				String mName = sqlName.getText().toString();
+				String mHotness = sqlHotness.getText().toString();
+				String sRow = sqlRow.getText().toString();
+				long lRow = Long.parseLong(sRow);
+				HotOrNot ex = new HotOrNot(this);
+				ex.open();
+				ex.updateEntry(lRow, mName, mHotness);
+				ex.close();
+			} catch (Exception e) {
+
+				String error = e.toString();
+				Dialog d = new Dialog(this);
+				d.setTitle("!Dang!!");
+				TextView tv = new TextView(this);
+				tv.setText(error);
+				d.setContentView(tv);
+				d.show();
+				e.printStackTrace();
+			}
+
+			break;
+
+		case R.id.bSQLdelete:
+			try {
+				String sRow1 = sqlRow.getText().toString();
+				long lRow1 = Long.parseLong(sRow1);
+				HotOrNot ex1 = new HotOrNot(this);
+				ex1.open();
+				ex1.deleteEntry(lRow1);
+				ex1.close();
+			} catch (Exception e) {
+
+				String error = e.toString();
+				Dialog d = new Dialog(this);
+				d.setTitle("!Dang!!");
+				TextView tv = new TextView(this);
+				tv.setText(error);
+				d.setContentView(tv);
+				d.show();
+				e.printStackTrace();
+			}
+
+			break;
 		}
 	}
 }
